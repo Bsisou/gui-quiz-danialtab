@@ -149,4 +149,14 @@ else:
             tk.label(self.canvas, text=f'Correct: {quiz.get_score(self.difficulty, "correct")}', font=('Helvetica', 18, 'bold')).place(x=400, y=280)
     tk.Label(self.canvas, text=f'Incorrect: {quiz.get_score(self.difficulty,
 "incorrect")}', font=('Helvetica', 18)).place(x=400, y=330)
+
+#Button to restart the quiz at the end
+restart_button = tk.Button(self.canvas, text='Restart', command=self.restart_quiz)
+restart_button.place(x=500, y=440)
+
+def restart_quiz(self):
+
+    self.questions_index = 0
+    quiz.scores[self.difficulty]['correct'] = 0
+    quiz.scores[self.difficulty]['incorrect'] = 0
     
