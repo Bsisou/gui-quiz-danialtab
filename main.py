@@ -159,4 +159,11 @@ def restart_quiz(self):
     self.questions_index = 0
     quiz.scores[self.difficulty]['correct'] = 0
     quiz.scores[self.difficulty]['incorrect'] = 0
-    
+
+ #Clear Scorebourd and the restart button when the restart button is clicked 
+for widget in self.canvas.winfo_children():
+    if isinstance(widget, tk.Label) or isinstance(widget, tk.Button):
+        widget.destroy()
+
+ #Show Difficutly selecton page 
+self.show_difficulty_page()
