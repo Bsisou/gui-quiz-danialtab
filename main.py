@@ -74,4 +74,14 @@ medium-button = tk.Button(self.canvas, text='Medium', font=button_font,
 width=button_width, height=button_height, command=lambda: self.start_quiz('medium'))
 medium_button.place(x=440, y=420) # Y COORDINGINATE
 
-def start_quiz
+def start_quiz(self, difficutly):
+
+    self.current_page= 'quiz'
+    self.difficutly = difficutly
+    self.question_index = 0
+
+#clear canvas
+for widget in self.canvas.winfow_children():
+    widget.destroy()
+
+
