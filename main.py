@@ -1,5 +1,18 @@
 import tkinter as tk
 from PIL import Image, ImageTk
+import random
+
+#Define Question Class
+class Question:
+def __init__(self, question_text, answers, correct_answer):
+    self.question_text = question_text
+    self.answeres = answers
+    self.correct_answer = correct_answer
+
+#DEFINE THE QUIZ CLASS TO MANAGE QUESTIONS BY DIFFICUTLY LEVEL
+class Quiz:
+
+
 
 # Start the initial start page
 self.show_start_page()
@@ -145,11 +158,10 @@ else:
             self.canvas.create_image(0, 0, anchor=tl.NW, image=self.sc_photo)
 
             #Display scoreboard labels
-            tk.Label(self.canvas, text='Scoreboard', font=('Helvetica', 24, 'bold')).place(x=400, y=180)
-            tk.label(self.canvas, text=f'Correct: {quiz.get_score(self.difficulty, "correct")}', font=('Helvetica', 18, 'bold')).place(x=400, y=280)
-    tk.Label(self.canvas, text=f'Incorrect: {quiz.get_score(self.difficulty,
-"incorrect")}', font=('Helvetica', 18)).place(x=400, y=330)
-
+tk.Label(self.canvas, text='Scoreboard', font=('Helvetica', 24, 'bold')).place(x=400, y=180)  
+tk.Label(self.canvas, text=f'Correct: {quiz.get_score(self.difficulty, "correct")}', font=('Helvetica', 18)).place(x=400, y=280)  
+tk.Label(self.canvas, text=f'Incorrect: {quiz.get_score(self.difficulty, "incorrect")}', font=('Helvetica', 18)).place(x=400, y=330)
+                                                            
 #Button to restart the quiz at the end
 restart_button = tk.Button(self.canvas, text='Restart', command=self.restart_quiz)
 restart_button.place(x=500, y=440)
@@ -167,3 +179,8 @@ for widget in self.canvas.winfo_children():
 
  #Show Difficutly selecton page 
 self.show_difficulty_page()
+
+if __name__ == "__main__":
+    quiz = Quiz()
+    app = QuizApp()
+    app.mainloop()
