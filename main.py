@@ -74,7 +74,7 @@ medium-button = tk.Button(self.canvas, text='Medium', font=button_font,
 width=button_width, height=button_height, command=lambda: self.start_quiz('medium'))
 medium_button.place(x=440, y=420) # Y COORDINGINATE
 
-def start_quiz(self, difficutly):
+3(self, difficutly):
 
     self.current_page= 'quiz'
     self.difficutly = difficutly
@@ -117,7 +117,36 @@ for i, answer in enumerate(answers):
     self.answer_buttons.append(button)
 
     self.question_index += 1 # move to the next question index
-    
-                      
+else:
+    # all questistions have been awnsered now the scourbourd will show
+    self.show_scoreboard()
 
-                      
+def check_answer(self, selected_answer, correct_answer):
+
+if selected_answer == correct_answer:
+    quiz.update_score(self.difficulty, 'correct')
+else:
+    quiz.update_score(self.difficulty, 'incorrect')
+
+    #clear canvas
+    for widget in self.canvas.winfo_children():
+        if isinstance(widget, tk.Label) or isinstance(widget, tk.Button):
+            widget.destroy()
+
+            #Display the next question or scourbouard
+            self.show_question()
+
+            def show_scorebourd(self):
+
+                self.current_page = 'scoreboard'
+                self.canvas.delete('all') #Clear Canvas
+
+            #Display background image for scourbourd
+            self.canvas.create_image(0, 0, anchor=tl.NW, image=self.sc_photo)
+
+            #Display scoreboard labels
+            tk.Label(self.canvas, text='Scoreboard', font=('Helvetica', 24, 'bold')).place(x=400, y=180)
+            tk.label(self.canvas, text=f'Correct: {quiz.get_score(self.difficulty, "correct")}', font=('Helvetica', 18, 'bold')).place(x=400, y=280)
+    tk.Label(self.canvas, text=f'Incorrect: {quiz.get_score(self.difficulty,
+"incorrect")}', font=('Helvetica', 18)).place(x=400, y=330)
+    
