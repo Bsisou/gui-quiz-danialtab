@@ -98,4 +98,26 @@ def show_questions(self):
 # Display background image for quiz
 self.canvas.create_image(0, 0 anchor=tk.NW, image=self.dif_photo)
 
-# 
+# retrive question data
+question_data = quiz.get_questions(self.difficulty)[self.question_index]
+question_text = question_data.question_text
+answers = question_data.answers
+correct_answer = question_data.correct_answer
+
+# display question title
+question_label = tk.Label(self.canvas, text=queastion_text, font=('Helvetica', 18, 'bold'))
+question_label.place(x-100, y=180) # Y COORDINATE
+
+# display awnser buttons 
+self.answer_buttons = []
+for i, answer in enumerate(answers):
+    button =tk.Button(self.canvas, text=answer, command=lambda ans=answer:
+ self.check_answer(ans, correct_answer))
+    button.place(x=100, y=240 + i * 50) 
+    self.answer_buttons.append(button)
+
+    self.question_index += 1 # move to the next question index
+    
+                      
+
+                      
