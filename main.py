@@ -11,8 +11,15 @@ def __init__(self, question_text, answers, correct_answer):
 
 #DEFINE THE QUIZ CLASS TO MANAGE QUESTIONS BY DIFFICUTLY LEVEL
 class Quiz:
-
-
+    def __init__(self):
+        self.questions = {
+            'easy' [
+            Question('Simplify the expression 3x + 5x', ['7x', '8x', '9x'], '8x'),
+            Question('Simplify the expression 7y - 2y', ['5y', '6y', '9y'], '5y'),
+            Question('Simplify the expression 4a + 6a', ['9a', '10a', '2a'], '10a'),
+            Question('Simplify the expression 9b -3b + 2b', ['7x', '7b', '8b'], '8b'),
+            Question('Simplify the expression 2m + 3m + 4m', ['8m', '9m', '10m'], '9m'),
+            Question('Simplify the expression 5c - c', ['3c', '4c', '5c'], '4c'),
 
 # Start the initial start page
 self.show_start_page()
