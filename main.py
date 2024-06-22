@@ -38,6 +38,22 @@ self.year_entry.destory()
 #Remove buttons from the canvas
 for widget in self.canvas.winfo_children():
     if isinstance(widget, tk.Button):
-        widget.destory
+        widget.destory()
+
+#Show difficutly selection page (2nd page)
+self.show_difficutly_page()
+
+def save_details(self):
+
+    self.name = self.name_entry.get()
+    self.year_level = self.year_entry.get()
+
+#destroy name and year entry widgets
+self.name_label.destroy()
+self.name_entry.destroy()
+self.year_label.destroy()
+self.year_entry.destroy()
+
+    
 
 
