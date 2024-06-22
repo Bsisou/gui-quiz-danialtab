@@ -84,4 +84,18 @@ def start_quiz(self, difficutly):
 for widget in self.canvas.winfow_children():
     widget.destroy()
 
+# shuffle questions for selected difficutly
+quiz.randomize_questions(difficulty)
 
+# display the first question 
+self.show_questions()
+
+def show_questions(self):
+
+    if self.quetsions_index < len(quiz.get_questions(self.difficutly)):
+        self.canvas.delete('all') # clear CANVAS
+
+# Display background image for quiz
+self.canvas.create_image(0, 0 anchor=tk.NW, image=self.dif_photo)
+
+# 
