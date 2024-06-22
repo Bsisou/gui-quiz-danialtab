@@ -20,7 +20,34 @@ class Quiz:
             Question('Simplify the expression 9b -3b + 2b', ['7x', '7b', '8b'], '8b'),
             Question('Simplify the expression 2m + 3m + 4m', ['8m', '9m', '10m'], '9m'),
             Question('Simplify the expression 5c - c', ['3c', '4c', '5c'], '4c'),
+      ],
+            'medium': [ 
+        Question('Simplify the expression 3x + 5x', ['7x', '8x', '9x'], '8x'),
+                Question('Simplify the expression 7y - 2y', ['5y', '6y', '9y'], '5y'),
+                Question('Simplify the expression 4a + 6a', ['9a', '10a', '2a'], '10a'),
+                Question('Simplify the expression 9b -3b + 2b', ['7x', '7b', '8b'], '8b'),
+                Question('Simplify the expression 2m + 3m + 4m', ['8m', '9m', '10m'], '9m'),
+                Question('Simplify the expression 5c - c', ['3c', '4c', '5c'], '4c'),
+          ],
+        'hard': [ 
+    Question('Simplify the expression 3x + 5x', ['7x', '8x', '9x'], '8x'),
+            Question('Simplify the expression 7y - 2y', ['5y', '6y', '9y'], '5y'),
+            Question('Simplify the expression 4a + 6a', ['9a', '10a', '2a'], '10a'),
+            Question('Simplify the expression 9b -3b + 2b', ['7x', '7b', '8b'], '8b'),
+            Question('Simplify the expression 2m + 3m + 4m', ['8m', '9m', '10m'], '9m'),
+            Question('Simplify the expression 5c - c', ['3c', '4c', '5c'], '4c'),
+      ],
+        }
 
+#Dictonary to store scores
+self.scores = {
+    'easy': {'correct': 0, 'incorrect': 0},
+    'medium': {'correct': 0, 'incorrect': 0}
+    'hard': {'correct': 0, 'incorrect': 0}
+}
+
+
+        
 # Start the initial start page
 self.show_start_page()
 
