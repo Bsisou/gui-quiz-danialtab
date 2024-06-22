@@ -54,6 +54,6 @@ self.name_entry.destroy()
 self.year_label.destroy()
 self.year_entry.destroy()
 
-    
+def show_difficulty_page(self):
 
-
+    self.canvas.delete('all')
