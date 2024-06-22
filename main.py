@@ -57,3 +57,21 @@ self.year_entry.destroy()
 def show_difficulty_page(self):
 
     self.canvas.delete('all')
+
+# Display Background image for the difficutly selection page (2nd page)
+self.canvas.create_image(0,0, anchor=tk.NW, image=self.page2_photo)
+
+# create buttons for selecting diffuclty levels
+button_font = ('helvetica' 18)
+button_width = 20 
+button_height = 2
+
+easy_button = tk.Button(self.canvas, text='Easy', font=button_font,
+width=button_width, height=button_height, command=lamba :self.start_quiz('easy'))
+easy_button.place(x=440, y=220) # Y COORDINGATNE 
+
+medium-button = tk.Button(self.canvas, text='Medium', font=button_font,
+width=button_width, height=button_height, command=lambda: self.start_quiz('medium'))
+medium_button.place(x=440, y=420) # Y COORDINGINATE
+
+def start_quiz
