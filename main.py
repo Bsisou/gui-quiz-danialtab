@@ -136,33 +136,27 @@ class QuizApp(tk.Tk):
     def limit_name_length(self, event):
                                 current_name = self.name_entry.get()
                                 if any(char.isdigit() for char in current_name):
-                                   messagebox.showerror("Input Error", "Please enter only 
-                                   letters.")
+                                   messagebox.showerror("Input Error", "Please enter only letters.")
                                    self.name_entry.delete(0, tk.END)
-                                elif any(not char.isalnum() and not char.isspace() for char 
-                                    in current_name):
-                                    messagebox.showerror("Input Error", "Symbols are not 
-                                    allowed. Please enter only letters.")
+                                elif any(not char.isalnum() and not char.isspace() for char in current_name):
+                                    messagebox.showerror("Input Error", "Symbols are not allowed. Please enter only letters.")
                                     self.name_entry.delete(0, tk.END)
                                 elif len(current_name) > 8:
-                                    messagebox.showerror("Input Error", "Please enter a 
-                                    maximum of 8 letters.")
-                                    self.name_entry.delete(8, tk.END) 
-                                                         
-    def validate_year_level(self, event):
-                                current_year = self.year_entry.get()
+                                    messagebox.showerror("Input Error", "Please enter a maximum of 8 letters.")
+                                    self.name_entry.delete(8, tk.END)
+
+
+                                def validate_year_level(self, event):
+                                    current_year = self.year_entry.get()
                                 if any(char.isalpha() for char in current_year):
-                                    messagebox.showerror("Input Error", "Please enter only 
-                                    numbers.")
-                                    self.year_entry.delete(0, tk.END)
-                                elif any(not char.isdigit() for char in current_year):  
-                                    messagebox.showerror("Input Error", "Symbols are not 
-                                    allowed. Please enter only numbers.")
-                                    self.year_entry.delete(0, tk.END)
+                                   messagebox.showerror("Input Error", "Please enter only numbers.")
+                                   self.year_entry.delete(0, tk.END)
+                                elif any(not char.isdigit() for char in current_year):
+                                     messagebox.showerror("Input Error", "Symbols are not allowed. Please enter only numbers.")
+                                     self.year_entry.delete(0, tk.END)
                                 elif len(current_year) > 2:
-                                    messagebox.showerrornot char. "please enter a maximum of 2 
-                                    digits.")
-                                    self.year_entry.delete(2, tk.END)
+                                     messagebox.showerror("Input Error", "Please enter a maximum of 2 digits.")
+                                     self.year_entry.delete(2, tk.END)
 
   
     def skip_start_page(self):
@@ -172,53 +166,74 @@ class QuizApp(tk.Tk):
             self.error_message.config(text='Please make sure to save before skipping.')
             return
             
-        #DESTORY NAME AND ENTRY WIDGETS
+        #DESTORY NAME AND ENTRY WIDGETS AND ERROR MESSAGES
+        self.error_message.destroy()
         self.name_label.destroy()
         self.name_entry.destroy()
         self.year_label.destroy()
         self.year_entry.destroy()
-
-        # Remove buttons from canvas
-        for widget in self.canvas.winfo_children():
-            if isinstance(widget, tk.Button):
-                widget.destroy()
+        self.save_button.destroy()
+        self.skip_button.destroy()
 
         # Show difficulty selection page 
         self.show_difficulty_page()
-
+        
     def save_details(self):
-
         self.name = self.name_entry.get()
         self.year_level = self.year_entry.get()
 
-        # Destroy name and year entry widgets
-        self.name_label.destroy()
-        self.name_entry.destroy()
-        self.year_label.destroy()
-        self.year_entry.destroy()
+        if not self.name or not self.year_level:
+            self.error_message.config(text='Both fields are required to save')
+            return
+
+        if len(self.name) > 8:
+            self.error_message.config(text='Please only enter a max of 8 characters.')
+            return
+
+        if len(self.year_level) > 2:
+            self.error_message.config(text='Please only enter a max of 2 digits for year 
+            level.')
+            return
+
+        self.info_saved = True
+        self.error_message.config(text='Information saved succefully. Feel free to skip
+        now.')
+        self.save_button.config(state=tk.DISABLED)
 
     def show_difficulty_page(self):
-
         self.canvas.delete('all')  # Clear canvas
 
         # Display background image for the difficulty page
-        self.canvas.create_image(0, 0, anchor=tk.NW, image=self.page2_photo)
+        self.canvas.create_image(0, 0, anchor=tk.NW, image=self.dif_photo)
 
         # Create buttons for selecting difficulty levels
-        button_font = ('Helvetica', 18)
+        button_font = ('Arial', 18, 'bold')
         button_width = 20
         button_height = 2
 
-        easy_button = tk.Button(self.canvas, text='Easy', font=button_font, width=button_width, 
-        height=button_height, command=lambda: self.start_quiz('easy'))
+        easy_button = tk.Button(
+            self.canvas, text='Easy', font=button_font, width=button_width, 
+            height=button_height, 
+            command=lambda: self.start_quiz('easy'), bg='white', fg='black',
+            hightlightbackground='black'
+        )
         easy_button.place(x=440, y=220)  
 
-        medium_button = tk.Button(self.canvas, text='Medium', font=button_font, width=button_width, 
-        height=button_height, command=lambda: self.start_quiz('medium'))
+        medium_button = tk.Button(
+            self.canvas, text='Medium', font=button_font, width=button_width, 
+            height=button_height, 
+            command=lambda: self.start_quiz('medium'), bg='white', fg='black', 
+            highlightbackground='black'
+        )
         medium_button.place(x=440, y=320)  # Adjusted y-coordinate
 
-        hard_button = tk.Button(self.canvas, text='Hard', font=button_font, width=button_width, height=button_height, command=lambda: self.start_quiz('hard'))
-        hard_button.place(x=440, y=420)  # Adjusted y-coordinate
+        hard_button = tk.Button(
+            self.canvas, text='Hard', font=button_font, width=button_width, 
+            height=button_height, 
+            command=lambda: self.start_quiz('hard'), bg='white', fg='black', 
+            highlightbackground='black'
+        )
+        hard_button.place(x=620, y=420) # Adjusted y-coordinate
 
     def start_quiz(self, difficulty): 
         self.current_page = 'quiz'
@@ -230,18 +245,17 @@ class QuizApp(tk.Tk):
             widget.destroy()
 
         # Shuffle questions for selected difficulty
-        quiz.randomize_questions(difficulty)
+        self.quiz.randomize_questions(difficulty)
+        self.show_question() #DISPLAY THE FIRST QUESTION
 
-        # Display the first question
-        self.show_question()
-
-    def show_question(self):
-
-        if self.question_index < len(quiz.get_questions(self.difficulty)):
-            self.canvas.delete('all')  # Clear canvas
+            def show_question(self):
+                                 if self.question_index < 
+len(self.quiz.get_questions(self.difficulty)):
+                            self.canvas.delete('all') # Clear canvas
 
             # Display background image for quiz
-            self.canvas.create_image(0, 0, anchor=tk.NW, image=self.dif_photo)
+                            self.canvas.create_image(0, 0, anchor=tk.NW, 
+                            image=self.dif_photo)
 
             # Retrieve question data
             question_data = quiz.get_questions(self.difficulty)[self.question_index]
@@ -249,70 +263,107 @@ class QuizApp(tk.Tk):
             answers = question_data.answers
             correct_answer = question_data.correct_answer
 
-            # Display question title
-            question_label = tk.Label(self.canvas, text=question_text, font=('Helvetica', 18, 'bold'))
-            question_label.place(x=100, y=180)  # Adjusted y-coordinate
+            #Create a label with a white background and black border
+            question
+            question_label = tk.Label(
+               self.canvas,
+               text=question_text,
+               font=('Playwrite Cuba', 20, 'bold'),
+               bg='white',
+               highlightbackground='black',
+               highlightthickness=1
+            )                         
+            question_label.place(x=50m y=300) #adjust where the question goes
 
-            # Display answer buttons
+           # Display answer buttons
             self.answer_buttons = []
             for i, answer in enumerate(answers):
-                button = tk.Button(self.canvas, text=answer, command=lambda ans=answer: self.check_answer(ans, correct_answer))
-                button.place(x=100, y=240 + i * 50)  # Adjusted y-coordinate
+                button = tk.Button(
+                    self.canvas,
+                    text=answer,
+                    font=('Arial', 10)
+                    bg='white',
+                    highlightbackground='black', 
+                    highlightthickness=1, 
+                    command=lambda ans=answer: self.check_answer(ans,
+                    correct_answer)                
+                )                                                
+                button.place(x=110, y=390 + i * 50)
                 self.answer_buttons.append(button)
-
+                                    
             self.question_index += 1  # Move to the next question index
         else:
             # All questions answered, show scoreboard
             self.show_scoreboard()
 
-    def check_answer(self, selected_answer, correct_answer):
+        def check_answer(self, selected_answer, correct_answer):
+            if selected_answer == correct_answer:
+                self.quiz.update_score(self.difficulty, 'correct')
+            else:
+                self.quiz.update_score(self.difficulty, 'incorrect')
 
-        if selected_answer == correct_answer:
-            quiz.update_score(self.difficulty, 'correct')
-        else:
-            quiz.update_score(self.difficulty, 'incorrect')
+            for widget in self.canvas.winfo_children():
+                if isinstance(widget, tk.Label) or isinstance(widget, tk.Button):
+                    widget.destroy()
 
-        # Clear canvas
-        for widget in self.canvas.winfo_children():
-            if isinstance(widget, tk.Label) or isinstance(widget, tk.Button):
-                widget.destroy()
-
-        # Display the next question or scoreboard
-        self.show_question()
+            self.show_question()
 
     def show_scoreboard(self):
-
         self.current_page = 'scoreboard'
         self.canvas.delete('all')  # Clear canvas
 
         # Display background image for scoreboard
         self.canvas.create_image(0, 0, anchor=tk.NW, image=self.sc_photo)
 
-        # Display scoreboard labels
-        tk.Label(self.canvas, text='Scoreboard', font=('Helvetica', 24, 'bold')).place(x=400, y=180)  
-        tk.Label(self.canvas, text=f'Correct: {quiz.get_score(self.difficulty, "correct")}', font=('Helvetica', 18)).place(x=400, y=280)  
-        tk.Label(self.canvas, text=f'Incorrect: {quiz.get_score(self.difficulty, "incorrect")}', font=('Helvetica', 18)).place(x=400, y=330)  
+        #PERONSALIZED MESSAHE WITH TEXT WRAPPING
+        thank_you_message = (
+            f"Thanks for taking the quiz, {self.name}! You got "
+            f"{self.quiz.get_scores(self.difficulty, 'correct')} correct and "
+            f"{self.quiz.get_scores(self.difficulty, 'incorrect')} incorrect."
+        )
+        year_level_message = f"Good luck in year  {self.year_level}!"
 
-        # Button to restart quiz
-        restart_button = tk.Button(self.canvas, text='Restart', command=self.restart_quiz)
-        restart_button.place(x=500, y=440)  # Adjusted y-coordinate
+        # create labels with text wrapping
+tk.Label(
+    self.canvas,
+    text=thank_you_message,
+    font=('Helvetica', 18),
+    wraplength=800,  
+    justify=tk.CENTER
+).place(x=100, y=200)  
 
-    def restart_quiz(self):
+tk.Label(
+    self.canvas,
+    text=year_level_message,
+    font=('Arial', 18),
+    wraplength=800,  
+    justify=tk.CENTER
+).place(x=100, y=265)  
 
-        self.question_index = 0
-        quiz.scores[self.difficulty]['correct'] = 0
-        quiz.scores[self.difficulty]['incorrect'] = 0
+restart_button = tk.Button(
+    self.canvas, 
+    text='Restart!', 
+    command=self.restart_quiz, 
+    bg='white', 
+    highlightbackground='black', 
+    highlightthickness=1,
+    font=('Arial', 13),
+    width=9,
+    height=2
+)
+restart_button.place(x=100, y=340)
 
-        # Clear scoreboard and restart button
-        for widget in self.canvas.winfo_children():
-            if isinstance(widget, tk.Label) or isinstance(widget, tk.Button):
-                widget.destroy()
+def restart_quiz(self):
+    self.question_index=0
+    self.quiz.scores[self.difficulty]['correct'] = 0
+    self.quiz.scores[self.difficulty]['incorrect'] = 0
 
-        # Show difficulty selection page
-        self.show_difficulty_page()
+    for widget in self.canvas.winfo_children():
+        if isinstance(widget, tk.Label) or isinstance(widget, tk.Button):
+            widget.destroy()
 
+    self.show_difficulty_page()
 
 if __name__ == "__main__":
-    quiz = Quiz()  # Instantiate the Quiz class
     app = QuizApp()
     app.mainloop()
